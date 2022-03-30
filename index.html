@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        var con = 0;
+        var old = 0;
+        var now = 0;
+        $(function() {
+            $(".playzone").stop().click(function() {
+                if (con == 1) {
+                    now = new Date().getTime();
+                    var score = now - old;
+                    $(".time").text(score + "ms");
+                } else {
+                    $(this).css({
+                        background: "rgb(255, 185, 107)"
+                    });
+                    $(".time").text("다시 시도하세요");
+                    con += 2;
+                }
+            })
+            $(".startBtn").stop().click(function() {
+                $(".playzone").css({
+                    background: "rgb(177, 177, 177)"
+                });
+                $(".time").text("초록색을 기다리세요");
+                con = 0;
+                setTimeout(function ready() {
+                    if (con == 2) {
+                        return;
+                    } else {
+                        $(".playzone").css({
+                            background: "rgb(122, 190, 130)"
+                        });
+                        $(".time").text("지금!");
+                        con++;
+                        old = new Date().getTime();
+                    }
+                }, Math.floor(Math.random() * 4000 + 1000));
+            })
+
+            $(".popupBtn").stop().click(function() {
+                $('.popup').fadeIn();
+                $('.popupBg').fadeIn();
+            })
+
+            $(".closeBtn").stop().click(function() {
+                $('.popup').fadeOut();
+                $('.popupBg').fadeOut();
+            })
+        })
+    </script>
+
+    <style>
+        * {
+            margin: 0 auto;
+        }
+        
+        .playzone {
+            width: 100%;
+            height: 100vh;
+            background: rgb(177, 177, 177);
+            text-align: center;
+        }
+        
+        h1 {
+            line-height: 100vh;
+            font-size: 36px;
+            -ms-user-select: none;
+            -moz-user-select: -moz-none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            user-select: none;
+        }
+        
+        button {
+            position: fixed;
+            width: 150px;
+            height: 80px;
+            top: 5px;
+            font-size: 36px;
+        }
+        
+        .startBtn {
+            left: 5px;
+        }
+        
+        .popupBtn {
+            right: 5px;
+        }
+        
+        .popupBg {
+            width: 100vw;
+            height: 100vh;
+            z-index: 5;
+            display: none;
+            margin: 0 auto;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .popup {
+            margin: 0 auto;
+            width: 400px;
+            height: 500px;
+            text-align: center;
+            position: fixed;
+            left: 35%;
+            top: 10%;
+            z-index: 6;
+            background-color: white;
+            border: 1px black solid;
+            display: none;
+        }
+        
+        .closeBtn {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="popupBg"></div>
+    <div class="popup">
+        <button class="closeBtn">X</button>
+    </div>
+    <button class="startBtn">start</button>
+    <button class="popupBtn">score</button>
+    <div class="playzone">
+        <h1 class="time">초록색을 기다리세요</h1>
+    </div>
+
+
+
+</body>
+
+</html>
